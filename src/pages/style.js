@@ -1,3 +1,4 @@
+import { FaCheckSquare, FaRegSquare } from 'react-icons/fa';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -28,7 +29,7 @@ export const Button = styled.button`
   background-color: red;
   margin-left: 15px;
   color: #fff;
-  margin-top: 15px;
+  margin-top: 5px;
 `
 
 export const ButtonInput = styled.button`
@@ -50,3 +51,21 @@ export const H1 = styled.h1`
   font size: 28px;
   margin-left: 25px;
 `
+
+export const TaskItem = styled.li`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+export const CheckIcon = styled(FaCheckSquare)`
+  color: red;
+  cursor: pointer;
+  margin-left: 10px;
+`;
+
+export const UncheckIcon = styled(FaRegSquare)`
+  color: gray;
+  cursor: pointer;
+  margin-left: 10px;
+`;

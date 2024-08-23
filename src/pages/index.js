@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Content, Input, Button, Form, H1,ButtonInput } from './style';
+import { Container, Content, Input, Button, Form, H1, ButtonInput, TaskItem, CheckIcon, UncheckIcon } from './style';
 
 const Page = () => {
   const [tasks, setTasks] = useState([]);
@@ -31,8 +31,8 @@ const Page = () => {
       });
 
       if (response.ok) {
-        fetchTasks(); 
-        setNewTask(''); 
+        fetchTasks();
+        setNewTask('');
       } else {
         console.error('Erro ao adicionar tarefa:', response.statusText);
       }
@@ -41,7 +41,6 @@ const Page = () => {
     }
   };
 
-  
   const updateTask = async (e) => {
     e.preventDefault();
     if (editTaskDescription.trim() === '') return;
@@ -56,9 +55,9 @@ const Page = () => {
       });
 
       if (response.ok) {
-        fetchTasks(); 
-        setEditTaskId(null); 
-        setEditTaskDescription(''); 
+        fetchTasks();
+        setEditTaskId(null);
+        setEditTaskDescription('');
       } else {
         console.error('Erro ao atualizar tarefa:', response.statusText);
       }
@@ -74,7 +73,7 @@ const Page = () => {
       });
 
       if (response.ok) {
-        fetchTasks(); 
+        fetchTasks();
       } else {
         console.error('Erro ao deletar tarefa:', response.statusText);
       }
@@ -94,7 +93,7 @@ const Page = () => {
       });
 
       if (response.ok) {
-        fetchTasks(); 
+        fetchTasks();
       } else {
         console.error('Erro ao atualizar tarefa:', response.statusText);
       }
@@ -138,16 +137,22 @@ const Page = () => {
         <H1>Aqui estão suas tarefas!</H1>
         <ul>
           {tasks.map((task) => (
-            <li key={task.id}>
+            <TaskItem key={task.id}>
               <span
                 style={{
                   textDecoration: task.completed ? 'line-through' : 'none',
                   cursor: 'pointer',
+                  marginRight: '10px',
                 }}
                 onClick={() => toggleTaskCompletion(task.id, task.completed)}
               >
                 {task.description}
               </span>
+              {task.completed ? (
+                <CheckIcon onClick={() => toggleTaskCompletion(task.id, task.completed)} />
+              ) : (
+                <UncheckIcon onClick={() => toggleTaskCompletion(task.id, task.completed)} />
+              )}
               <Button onClick={() => {
                 setEditTaskId(task.id);
                 setEditTaskDescription(task.description);
@@ -155,7 +160,7 @@ const Page = () => {
                 Editar
               </Button>
               <Button onClick={() => deleteTask(task.id)}>Deletar</Button>
-            </li>
+            </TaskItem>
           ))}
         </ul>
       </div>
